@@ -6,12 +6,12 @@
 
 Name:                   ibus
 Version:                1.5.19
-Release:                5
+Release:                6
 Summary:                Intelligent Input Bus for Linux OS
 License:                LGPLv2+
-Group:                  System Environment/Libraries
 URL:                    https://github.com/ibus/%name/wiki
 Source0:                https://github.com/ibus/%name/releases/download/%{version}/%{name}-%{version}.tar.gz
+#Source1,2 come form fedora
 Source1:                %{name}-xinput
 Source2:                %{name}.conf.5
 Source3:                https://fujiwara.fedorapeople.org/ibus/po/%{name}-po-1.5.19-20180822.tar.gz
@@ -135,7 +135,7 @@ dconf update || :
 
 %files -f %{name}10.lang
 %defattr(-,root,root)
-%doc COPYING AUTHORS
+%doc COPYING AUTHORS COPYING.unicode
 %{_bindir}/ibus
 %{_bindir}/ibus-daemon
 %{_bindir}/ibus-setup
@@ -179,6 +179,12 @@ dconf update || :
 %{_datadir}/gtk-doc/html/*
 
 %changelog
+* Wed Oct 09 2019 openEuler Buildteam <buildteam@openeuler.org> - 1.5.19-6
+- Type:enhancement
+- ID:NA
+- SUG:NA
+- DESC:add COPYING.unicode 
+
 * Thu Sep 19 2019 openEuler Buildteam <buildteam@openeuler.org> - 1.5.19-5
 - Package init
 
