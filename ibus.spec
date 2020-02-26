@@ -6,7 +6,7 @@
 
 Name:                   ibus
 Version:                1.5.19
-Release:                6
+Release:                7
 Summary:                Intelligent Input Bus for Linux OS
 License:                LGPLv2+
 URL:                    https://github.com/ibus/%name/wiki
@@ -23,8 +23,8 @@ BuildRequires:          dbus-python-devel >= %{dbus_python_version} desktop-file
 BuildRequires:          GConf2-devel intltool iso-codes-devel libnotify-devel libwayland-client-devel qt5-qtbase-devel cldr-emoji-annotation
 BuildRequires:          unicode-emoji unicode-ucd libXtst-devel libxslt gobject-introspection-devel pygobject3-devel
 
-Requires:               iso-codes dbus-x11 dconf python3-gobject python3 xorg-x11-xinit python2
-Requires:               dbus-python pygobject3-base xorg-x11-xkb-utils
+Requires:               iso-codes dbus-x11 dconf python3-gobject python3
+Requires:               xorg-x11-xinit xorg-x11-xkb-utils
 
 Requires:               desktop-file-utils glib2
 Requires(post):         desktop-file-utils glib2 
@@ -38,8 +38,8 @@ Requires(postun):       %{_sbindir}/alternatives
 
 Provides:               ibus-gtk = %{version}-%{release}
 Obsoletes:              ibus-gtk < %{version}-%{release}
-Provides:               ibus-gtk2  ibus-gtk3  ibus-setup  ibus-pygtk2   ibus-py2override    ibus-wayland
-Obsoletes:              ibus-gtk2  ibus-gtk3  ibus-setup  ibus-pygtk2   ibus-py2override    ibus-wayland
+Provides:               ibus-gtk2  ibus-gtk3  ibus-setup  ibus-wayland
+Obsoletes:              ibus-gtk2  ibus-gtk3  ibus-setup  ibus-wayland
 
 %global _xinputconf %{_sysconfdir}/X11/xinit/xinput.d/ibus.conf
 
@@ -81,7 +81,7 @@ fi
 %build
 autoreconf -ivf
 %configure --disable-static --enable-gtk2 --enable-gtk3 --enable-xim --enable-gtk-doc --enable-surrounding-text \
-           --with-python=python3 --enable-python-library --enable-wayland --enable-introspection %{nil}
+           --with-python=python3 --disable-python2 --enable-wayland --enable-introspection %{nil}
 
 make -C ui/gtk3 maintainer-clean-generic
 make
@@ -155,9 +155,6 @@ dconf update || :
 %config %{_xinputconf}
 %{_libdir}/gtk-2.0/*
 %{_libdir}/gtk-3.0/*
-%dir %{python2_sitelib}/ibus
-%{python2_sitelib}/ibus/*
-%python2_sitearch/gi/overrides/IBus.py*
 
 %files libs
 %{_libdir}/libibus-*%{ibus_api_version}.so.*
@@ -179,6 +176,12 @@ dconf update || :
 %{_datadir}/gtk-doc/html/*
 
 %changelog
+* Wed Feb 26 2020 hexiujun <hexiujun1@huawei.com> - 1.5.19-7
+- Type:enhancement
+- ID:NA
+- SUG:NA
+- DESC:deprecated python2
+
 * Wed Oct 09 2019 openEuler Buildteam <buildteam@openeuler.org> - 1.5.19-6
 - Type:enhancement
 - ID:NA
