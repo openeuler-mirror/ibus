@@ -5,8 +5,8 @@
 %global dbus_python_version 0.83.0
 
 Name:                   ibus
-Version:                1.5.19
-Release:                7
+Version:                1.5.22
+Release:                1
 Summary:                Intelligent Input Bus for Linux OS
 License:                LGPLv2+
 URL:                    https://github.com/ibus/%name/wiki
@@ -14,14 +14,15 @@ Source0:                https://github.com/ibus/%name/releases/download/%{versio
 #Source1,2 come form fedora
 Source1:                %{name}-xinput
 Source2:                %{name}.conf.5
-Source3:                https://fujiwara.fedorapeople.org/ibus/po/%{name}-po-1.5.19-20180822.tar.gz
 Patch0:                 %{name}-HEAD.patch
 Patch1:                 %{name}-1385349-segv-bus-proxy.patch
 
 BuildRequires:          gettext-devel libtool glib2-doc gtk2-devel gtk3-devel dbus-glib-devel gtk-doc dconf-devel dbus-x11 python3-devel
-BuildRequires:          dbus-python-devel >= %{dbus_python_version} desktop-file-utils python3-gobject python2-devel vala vala-devel vala-tools
-BuildRequires:          GConf2-devel intltool iso-codes-devel libnotify-devel libwayland-client-devel qt5-qtbase-devel cldr-emoji-annotation
+BuildRequires:          dbus-python-devel >= %{dbus_python_version} desktop-file-utils python3-gobject vala vala-devel vala-tools
+BuildRequires:          iso-codes-devel libnotify-devel libwayland-client-devel qt5-qtbase-devel cldr-emoji-annotation
 BuildRequires:          unicode-emoji unicode-ucd libXtst-devel libxslt gobject-introspection-devel pygobject3-devel
+#tmp buildrequire for update
+BuildRequires:          ibus-libs
 
 Requires:               iso-codes dbus-x11 dconf python3-gobject python3
 Requires:               xorg-x11-xinit xorg-x11-xkb-utils
@@ -70,7 +71,6 @@ docs for ibus.
 %prep
 %autosetup -p1
 
-zcat %SOURCE3 | tar xfv -
 
 diff client/gtk2/ibusimcontext.c client/gtk3/ibusimcontext.c
 if test $? -ne 0 ; then
@@ -100,13 +100,16 @@ done
 
 install -pm 644 -D %{SOURCE1} $RPM_BUILD_ROOT%{_xinputconf}
 
-echo "NoDisplay=true" >> $RPM_BUILD_ROOT%{_datadir}/applications/ibus-setup.desktop
+echo "NoDisplay=true" >> $RPM_BUILD_ROOT%{_datadir}/applications/org.freedesktop.IBus.Setup.desktop
 
 desktop-file-install --delete-original          \
   --dir $RPM_BUILD_ROOT%{_datadir}/applications \
   $RPM_BUILD_ROOT%{_datadir}/applications/*
 
 %find_lang %{name}10
+
+#tmp add for update
+cp -a %{_libdir}/libibus-*%{ibus_api_version}.so.* %{buildroot}/%{_libdir}
 
 %check
 make check DISABLE_GUI_TESTS="ibus-compose ibus-keypress test-stress" VERBOSE=1 %{nil}
@@ -165,6 +168,7 @@ dconf update || :
 %{_libdir}/lib*.so
 %{_libdir}/pkgconfig/*
 %{_includedir}/*
+%{_datadir}/gettext/its/ibus.*
 %{_datadir}/gir-1.0/IBus*-1.0.gir
 %{_datadir}/vala/vapi/ibus-*1.0.vapi
 %{_datadir}/vala/vapi/ibus-*1.0.deps
@@ -176,6 +180,12 @@ dconf update || :
 %{_datadir}/gtk-doc/html/*
 
 %changelog
+* Wed Jun 10 2020 zhujunhao <zhujunhao8@huawei.com> - 1.5.22-1
+- Type:bugfix
+- ID:NA
+- SUG:NA
+- DESC:update to 1.5.22
+
 * Wed Feb 26 2020 hexiujun <hexiujun1@huawei.com> - 1.5.19-7
 - Type:enhancement
 - ID:NA
