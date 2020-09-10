@@ -10,7 +10,7 @@ Release:                2
 Summary:                Intelligent Input Bus for Linux OS
 License:                LGPLv2+
 URL:                    https://github.com/ibus/%name/wiki
-Source0:                https://github.com/ibus/ibus/archive/%{version}.tar.gz
+Source0:                https://github.com/ibus/ibus/releases/download/%{version}/%{name}-%{version}.tar.gz
 #Source1,2 come form fedora
 Source1:                %{name}-xinput
 Source2:                %{name}.conf.5
