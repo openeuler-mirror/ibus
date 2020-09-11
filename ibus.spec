@@ -6,11 +6,11 @@
 
 Name:                   ibus
 Version:                1.5.22
-Release:                1
+Release:                2
 Summary:                Intelligent Input Bus for Linux OS
 License:                LGPLv2+
 URL:                    https://github.com/ibus/%name/wiki
-Source0:                https://github.com/ibus/%name/releases/download/%{version}/%{name}-%{version}.tar.gz
+Source0:                https://github.com/ibus/ibus/releases/download/%{version}/%{name}-%{version}.tar.gz
 #Source1,2 come form fedora
 Source1:                %{name}-xinput
 Source2:                %{name}.conf.5
@@ -180,6 +180,12 @@ dconf update || :
 %{_datadir}/gtk-doc/html/*
 
 %changelog
+* Tue Sep 8 2020 hanhui <hanhui15@huawei.com> - 1.5.22-2
+- Type:bugfix
+- ID:NA
+- SUG:NA
+- DESC:modify source url
+
 * Wed Jun 10 2020 zhujunhao <zhujunhao8@huawei.com> - 1.5.22-1
 - Type:bugfix
 - ID:NA
