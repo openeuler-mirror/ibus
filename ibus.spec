@@ -6,7 +6,7 @@
 
 Name:                   ibus
 Version:                1.5.22
-Release:                2
+Release:                3
 Summary:                Intelligent Input Bus for Linux OS
 License:                LGPLv2+
 URL:                    https://github.com/ibus/%name/wiki
@@ -16,6 +16,9 @@ Source1:                %{name}-xinput
 Source2:                %{name}.conf.5
 Patch0:                 %{name}-HEAD.patch
 Patch1:                 %{name}-1385349-segv-bus-proxy.patch
+Patch6000: 02338ce751a1ed5b9b892fba530ec2fe211d314e.patch
+Patch6001: aa558de80c224921753990806cf553428fbe7057.patch
+Patch6002: b72efea42d5f72e08e2774ae03027c246d41cab7.patch
 
 BuildRequires:          gettext-devel libtool glib2-doc gtk2-devel gtk3-devel dbus-glib-devel gtk-doc dconf-devel dbus-x11 python3-devel
 BuildRequires:          dbus-python-devel >= %{dbus_python_version} desktop-file-utils python3-gobject vala vala-devel vala-tools
@@ -180,6 +183,9 @@ dconf update || :
 %{_datadir}/gtk-doc/html/*
 
 %changelog
+* 20201121063007667187 patch-tracking 1.5.22-3
+- append patch file of upstream repository from <02338ce751a1ed5b9b892fba530ec2fe211d314e> to <b72efea42d5f72e08e2774ae03027c246d41cab7>
+
 * Tue Sep 8 2020 hanhui <hanhui15@huawei.com> - 1.5.22-2
 - Type:bugfix
 - ID:NA
@@ -206,4 +212,3 @@ dconf update || :
 
 * Thu Sep 19 2019 openEuler Buildteam <buildteam@openeuler.org> - 1.5.19-5
 - Package init
-
