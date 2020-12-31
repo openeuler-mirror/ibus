@@ -1,0 +1,13 @@
+diff --git a/engine/Makefile.am b/engine/Makefile.am
+index d810704b5..1944c02b9 100644
+--- a/engine/Makefile.am
++++ b/engine/Makefile.am
+@@ -104,7 +104,7 @@ simple.xml.in:
+ 	    --output=$@ \
+ 	    --version=$(VERSION).`date '+%Y%m%d'` \
+ 	    --exec-path=@libexecdir\@/ibus-engine-simple \
+-	    --iso-path=$(datarootdir)/xml/iso-codes/iso_639.xml \
++	    --iso-path=$(ISOCODES_PREFIX)/share/xml/iso-codes/iso_639.xml \
+ 	    --first-language \
+ 	$(NULL)
+ 
