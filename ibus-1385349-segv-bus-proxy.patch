@@ -1,6 +1,6 @@
-From 023d50db40912e4f7ee333543e05995a9c730bae Mon Sep 17 00:00:00 2001
+From 41c325dfb32269c9aadfeedb4df44656aac4d883 Mon Sep 17 00:00:00 2001
 From: fujiwarat <takao.fujiwara1@gmail.com>
-Date: Fri, 15 May 2020 21:44:16 +0900
+Date: Fri, 20 Nov 2020 09:53:54 +0900
 Subject: [PATCH] Fix SEGV in bus_panel_proxy_focus_in()
 
 rhbz#1350291 SEGV in BUS_IS_CONNECTION(skip_connection) in
@@ -280,12 +280,12 @@ index b7ffbb47..668c8a26 100644
          bus->priv->monitor = NULL;
      }
 diff --git a/ui/gtk3/extension.vala b/ui/gtk3/extension.vala
-index ea3cd464..57ed1357 100644
+index a6f2e8e6..b7a04081 100644
 --- a/ui/gtk3/extension.vala
 +++ b/ui/gtk3/extension.vala
 @@ -73,6 +73,10 @@ class ExtensionGtk : Gtk.Application {
-                                       string signal_name,
-                                       Variant parameters) {
+                                       string         signal_name,
+                                       Variant        parameters) {
          debug("signal_name = %s", signal_name);
 +        /* rhbz#1797120 Fix assert(bus.is_connected()) in
 +         * panel_binding_construct()
