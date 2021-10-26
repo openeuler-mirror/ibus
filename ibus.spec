@@ -6,7 +6,7 @@
 
 Name:                   ibus
 Version:                1.5.19
-Release:                7
+Release:                8
 Summary:                Intelligent Input Bus for Linux OS
 License:                LGPLv2+
 URL:                    https://github.com/ibus/%name/wiki
@@ -17,6 +17,8 @@ Source2:                %{name}.conf.5
 Source3:                https://fujiwara.fedorapeople.org/ibus/po/%{name}-po-1.5.19-20180822.tar.gz
 Patch0:                 %{name}-HEAD.patch
 Patch1:                 %{name}-1385349-segv-bus-proxy.patch
+Patch6000:              backport-0001-CVE-2019-14822.patch
+Patch6001:              backport-0002-CVE-2019-14822.patch
 
 BuildRequires:          gettext-devel libtool glib2-doc gtk2-devel gtk3-devel dbus-glib-devel gtk-doc dconf-devel dbus-x11 python3-devel
 BuildRequires:          dbus-python-devel >= %{dbus_python_version} desktop-file-utils python3-gobject python2-devel vala vala-devel vala-tools
@@ -176,6 +178,12 @@ dconf update || :
 %{_datadir}/gtk-doc/html/*
 
 %changelog
+* Tue Oct 26 2021 wangkerong <wangkerong@huawei.com> - 1.5.19-8
+- Type:CVE
+- ID:CVE-2019-14822
+- SUG:NA
+- DESC:fix CVE-2019-14822
+
 * Wed Feb 26 2020 hexiujun <hexiujun1@huawei.com> - 1.5.19-7
 - Type:enhancement
 - ID:NA
