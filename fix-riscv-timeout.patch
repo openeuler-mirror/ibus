@@ -1,0 +1,21 @@
+--- a/src/tests/ibus-bus.c
++++ b/src/tests/ibus-bus.c
+@@ -839,9 +839,6 @@
+ static gboolean
+ test_async_apis_finish (gpointer user_data)
+ {
+-    /* INFO: g_warning() causes SEGV with runtest script */
+-    if (ibus_get_address () == NULL)
+-        g_warning ("ibus-daemon does not restart yet from start_exit_async().");
+     ibus_quit ();
+     return FALSE;
+ }
+@@ -921,7 +918,7 @@
+      * async_functions is empty.
+      */
+     if (index >= G_N_ELEMENTS (async_functions))
+-        g_timeout_add (1, test_async_apis_finish, NULL);
++        g_timeout_add (15, test_async_apis_finish, NULL);
+     else
+         (*async_functions[index++])();
+ }

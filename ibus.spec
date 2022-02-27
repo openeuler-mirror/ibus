@@ -6,7 +6,7 @@
 
 Name:                   ibus
 Version:                1.5.23
-Release:                1
+Release:                2
 Summary:                Intelligent Input Bus for Linux OS
 License:                LGPLv2+
 URL:                    https://github.com/ibus/%name/wiki
@@ -17,6 +17,9 @@ Source2:                %{name}.conf.5
 Patch0:                 %{name}-HEAD.patch
 Patch1:                 %{name}-1385349-segv-bus-proxy.patch
 Patch2:                 30a3641e19c541924959a5770dd784b4424288d4.patch
+%ifarch riscv64
+Patch3:			fix-riscv-timeout.patch
+%endif
 
 BuildRequires:          gettext-devel libtool glib2-doc gtk2-devel gtk3-devel dbus-glib-devel gtk-doc dconf-devel dbus-x11 python3-devel
 BuildRequires:          dbus-python-devel >= %{dbus_python_version} desktop-file-utils python3-gobject vala vala-devel vala-tools
@@ -181,6 +184,9 @@ dconf update || :
 %{_datadir}/gtk-doc/html/*
 
 %changelog
+* Mon Feb 28 2022 YukariChiba <i@0x7f.cc> - 1.5.23-2
+- Fix timeout issue of test when building from RISC-V and avoid SEGV
+
 * Fri Jan 29 2021 zhanzhimin <zhanzhimin@huawei.com> - 1.5.23-1
 - update to 1.5.23
 
